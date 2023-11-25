@@ -21,13 +21,16 @@ private:
     };
     MOTOR_PINS *ena = new MOTOR_PINS();
     MOTOR_PINS *enb = new MOTOR_PINS();
-    void rolateMotor(int motorNumber, int motorDirection);
+    void rolateMotor(MOTOR_PINS *const motorNumber, int motorDirection);
+    int speed;
     
 public:
     controller(/* args */);
     ~controller();
     void controllerInit();
-    void moveCar(int value);
+    void moveCar(int state);
+    void setSpeed(int speed);
+    int getSpeed();
 };
 
 #endif //CONTROLLER.H

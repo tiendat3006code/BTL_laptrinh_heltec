@@ -25,56 +25,95 @@ void controller::controllerInit(){
     pinMode(enb->in_1, OUTPUT);
     pinMode(enb->in_2, OUTPUT);
 
-    // ledcAttachPin(ena->en, PWMSPEED);
-    // ledcAttachPin(enb->en, PWMSPEED);
+    ledcSetup(PWMCHANNEL, PWMFREQ, PWMRES);
+    ledcAttachPin(ena->en, PWMCHANNEL);
+    ledcAttachPin(enb->en, PWMCHANNEL);
 
-    // ledcSetup(PWMSPEED, PWMFREQ, PWMRES);
+    ledcWrite(PWMCHANNEL, speed);
 
-    analogWrite(ena->en, 255);
-    analogWrite(enb->en, 255);
-
-    moveCar(UP);
+    moveCar(STOP);
 
     Serial.println("INIT CONTROLLER SUCCESS");
 }
 
-void controller::moveCar(int value){
-    // switch (value)
-    // {
-    // case UP:
-    //     {
-            rolateMotor(RIGHT_MOTOR, FORWARD);
-            rolateMotor(LEFT_MOTOR, FORWARD);
-    //         Serial.println("CAR MOVE UP");
-    //         break;
-    //     }
-        
+void controller::moveCar(int state){
+    switch (state)
+    {
+    case UP:
+        {
+            rolateMotor(ena, FORWARD);
+            rolateMotor(enb, FORWARD);
+            Serial.println("CAR MOVE UP");
+            break;
+        }
+    case DOWN:
+    {
+        rolateMotor(ena, BACKWARD);
+        rolateMotor(enb, BACKWARD);
+        Serial.println("CAR MOVE DOWN");
+        break;
+    }
     
-    // default:
-    //     break;
-    // }
+    case STOP:
+    {
+        rolateMotor(ena, STOP);
+        rolateMotor(enb, STOP);
+        Serial.println("CAR STOP");
+        break;
+    }
+
+    case RIGHT:
+    {
+        rolateMotor(ena, BACKWARD);
+        rolateMotor(enb, FORWARD);
+        Serial.println("CAR TURN RIGHT");
+        break;
+    }
+
+    case LEFT:
+    {
+        rolateMotor(ena, FORWARD);
+        rolateMotor(enb, BACKWARD);
+        Serial.println("CAR TURN LEFT");
+        break;
+    }
+    default:
+        break;
+    }
 }
 
-void controller::rolateMotor(int motorNumber, int motorDirection){
-    // switch (motorDirection)
-    // {
-    // case FORWARD:
-    //     {
-        digitalWrite(ena->in_1, HIGH);
-        digitalWrite(ena->in_2, LOW);
+void controller::rolateMotor(MOTOR_PINS *const motorNumber, int motorDirection){
+    switch (motorDirection)
+    {
+    case FORWARD:
+        {
+        digitalWrite(motorNumber->in_1, HIGH);
+        digitalWrite(motorNumber->in_2, LOW);
+        break;
+        }
+    case BACKWARD:
+    {
+        digitalWrite(motorNumber->in_1, LOW);
+        digitalWrite(motorNumber->in_2, HIGH);
+        break;
+    }
 
-        digitalWrite(enb->in_1, HIGH);
-        digitalWrite(enb->in_2, LOW);
-    //     break;
-    //     }
-    // case BACKWARD:
-    // {
-    //     digitalWrite(ena->in_1, LOW);
-    //     digitalWrite(ena->in_2, HIGH);
-    //     break;
-    // }
+    case STOP:
+    {
+        digitalWrite(motorNumber->in_1, LOW);
+        digitalWrite(motorNumber->in_2, LOW);
+        break;
+    }
+    default:
+        break;
+    }
+}
 
-    // default:
-    //     break;
-    // }
+void controller::setSpeed(int speed){
+    this->speed = speed;
+}
+
+int controller::getSpeed(){
+    ledcWrite(PWMCHANNEL, speed);
+    return speed;
 }
