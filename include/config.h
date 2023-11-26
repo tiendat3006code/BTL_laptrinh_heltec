@@ -14,7 +14,7 @@
 #define PWMRES                  8
 #define PWMCHANNEL              1
 
-#define ENA                     12
+#define ENA 12
 #define IN_1                    21
 #define IN_2                    13
 
