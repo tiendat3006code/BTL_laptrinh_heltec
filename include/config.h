@@ -22,6 +22,9 @@
 #define IN_3       23
 #define IN_4       22
 
-#define BAUDRATE   9600
+#define BAUDRATE   115200
+
+#define HEIGHT     64
+#define WIDTH      128
 
 #endif  // CONFIG_H
