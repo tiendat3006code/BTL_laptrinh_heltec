@@ -19,6 +19,8 @@ public:
    ~oled_control();
    void oled_init();
    void startDisplay();
+   void test_display();
+   void display_state(int state);
 };
 
 #endif  // OLED_CONTROL_H

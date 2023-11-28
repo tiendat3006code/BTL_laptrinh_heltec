@@ -13,6 +13,7 @@ void bluetooth_control::bluetooth_init() {
    controller::controllerInit();
    oled_control::oled_init();
    oled_control::startDisplay();
+   oled_control::display_state(1);
 }
 
 void bluetooth_control::bluetooth_read() {
@@ -49,7 +50,7 @@ void bluetooth_control::bluetooth_read() {
 bool bluetooth_control::isConnected() {
    if (SerialBT.hasClient()) {
       //? don't know true or not
-      // remoteName = SerialBT.getChannels();
+      // remoteName = SerialBT.get
       // Serial.println(remoteName);
       return true;
    } else {

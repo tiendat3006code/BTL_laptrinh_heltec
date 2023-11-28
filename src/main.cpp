@@ -15,10 +15,13 @@ void setup() {
    int result = myFunction(2, 3);
    Serial.begin(BAUDRATE);
    blue.bluetooth_init();
+   // led.oled_init();
 }
 
 void loop() {
    blue.bluetooth_read();
+   // led.test_display();
+   // Heltec.display->display();
 }
 
 // put function definitions here:
