@@ -25,3 +25,10 @@ void oled_control::fill_rect() {
    Heltec.display->setColor(WHITE);
    Heltec.display->clear();
 }
+
+void oled_control::startDisplay() {
+   Heltec.display->setFont(ArialMT_Plain_16);
+   Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
+   Heltec.display->drawString(120, 50, "Starting up");
+   Heltec.display->display();
+}

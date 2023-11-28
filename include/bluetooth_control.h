@@ -4,12 +4,19 @@
 #include <Arduino.h>
 #include <BluetoothSerial.h>
 #include <stdint.h>
+#include <string.h>
 #include "config.h"
+#include "controller.h"
+#include "oled_control.h"
 
-class bluetooth_control {
+using std::string;
+
+class bluetooth_control : public controller, oled_control {
   private:
    /* data */
    BluetoothSerial SerialBT;
+   String remoteName;
+   bool isConnected();
 
   public:
    bluetooth_control(/* args */);
