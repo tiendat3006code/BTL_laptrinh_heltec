@@ -6,7 +6,7 @@
 #include "config.h"
 #include "oled_control.h"
 
-class controller : public oled_control {
+class controller {
   private:
    /* data */
    struct MOTOR_PINS {
@@ -26,6 +26,7 @@ class controller : public oled_control {
    void moveCar(int state);
    void setSpeed(int speed);
    int getSpeed();
+   void PWMwrite();
 };
 
 #endif  // CONTROLLER.H

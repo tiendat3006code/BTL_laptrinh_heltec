@@ -29,7 +29,7 @@ int co2_sensor::readSensor() {
 
 float co2_sensor::MGRead(int mg_pin) {
    int i;
-   float v = 0;
+   float v = 0.0;
 
    for (i = 0; i < READ_SAMPLE_TIMES; i++) {
       v += analogRead(mg_pin);

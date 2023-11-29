@@ -51,6 +51,7 @@ void oled_control::test_display() {
    // The coordinates define the right end of the text
    Heltec.display->setTextAlignment(TEXT_ALIGN_RIGHT);
    Heltec.display->drawString(128, 33, "Right aligned (128,33)");
+   Heltec.display->display();
 }
 
 void oled_control::display_state(int state) {
@@ -81,19 +82,24 @@ void oled_control::display_state(int state) {
 }
 
 void oled_control::display_power(int power) {
-   int powerPercent = power / 255 * 100;
-   String power_str = "Power: " + String(powerPercent) + "%";
+   Heltec.display->clear();
+   float result =  (power / 255.0) * 100;
+   powerPercent = static_cast<int>(result);
+   Serial.print("percent: ");
+   Serial.println(result);
+   String power_str = "Power : " + String(powerPercent) + "%";
    Heltec.display->setFont(ArialMT_Plain_16);
    Heltec.display->setTextAlignment(TEXT_ALIGN_CENTER);
    Heltec.display->drawString(WIDTH / 2, 30, power_str);
-   Heltec.display->drawProgressBar(WIDTH / 2, 40, 100, 10, powerPercent);
+   Heltec.display->drawProgressBar(10, 50, 110, 10, powerPercent);
+   // Heltec.display->display();
 }
 
 void oled_control::display_sensor(int value) {
-   Heltec.display->clear();
-   Heltec.display->setFont(ArialMT_Plain_24);
+   // Heltec.display->clear();
+   Heltec.display->setFont(ArialMT_Plain_16);
    Heltec.display->setTextAlignment(TEXT_ALIGN_CENTER);
-   String str = "Result: " + String(value) + "ppm";
-   Heltec.display->drawString(WIDTH / 2, HEIGHT / 2 - 20, str);
+   String str = "Result : " + String(value) + "ppm";
+   Heltec.display->drawString(WIDTH / 2, 10, str);
    // Heltec.display->display();
 }

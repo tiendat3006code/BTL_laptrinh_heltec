@@ -42,14 +42,12 @@ void controller::moveCar(int state) {
          rolateMotor(ena, FORWARD);
          rolateMotor(enb, FORWARD);
          Serial.println("CAR MOVE UP");
-         oled_control::display_state(UP);
          break;
       }
       case DOWN: {
          rolateMotor(ena, BACKWARD);
          rolateMotor(enb, BACKWARD);
          Serial.println("CAR MOVE DOWN");
-         oled_control::display_state(DOWN);
          break;
       }
 
@@ -57,21 +55,18 @@ void controller::moveCar(int state) {
          rolateMotor(ena, STOP);
          rolateMotor(enb, STOP);
          Serial.println("CAR STOP");
-         oled_control::display_state(STOP);
          break;
       }
       case RIGHT: {
          rolateMotor(ena, BACKWARD);
          rolateMotor(enb, FORWARD);
          Serial.println("CAR TURN RIGHT");
-         oled_control::display_state(RIGHT);
          break;
       }
       case LEFT: {
          rolateMotor(ena, FORWARD);
          rolateMotor(enb, BACKWARD);
          Serial.println("CAR TURN LEFT");
-         oled_control::display_state(LEFT);
          break;
       }
       default:
@@ -107,7 +102,9 @@ void controller::setSpeed(int speed) {
 }
 
 int controller::getSpeed() {
-   ledcWrite(PWMCHANNEL, speed);
-   oled_control::display_power(speed);
    return speed;
+}
+
+void controller::PWMwrite() {
+   ledcWrite(PWMCHANNEL, speed);
 }

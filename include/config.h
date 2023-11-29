@@ -27,7 +27,7 @@
 #define HEIGHT               64
 #define WIDTH                128
 
-#define MG_PIN               35
+#define MG_PIN               14
 #define DC_GAIN              5
 #define READ_SAMPLE_INTERVAL 50
 #define READ_SAMPLE_TIMES    5

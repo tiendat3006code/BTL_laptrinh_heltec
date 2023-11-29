@@ -15,6 +15,7 @@ class oled_control
 private:
    /* data */
    void fill_rect();
+   int powerPercent;
 public:
    oled_control(/* args */);
    ~oled_control();

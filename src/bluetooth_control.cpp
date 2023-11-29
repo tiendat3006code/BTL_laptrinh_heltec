@@ -4,15 +4,22 @@ bluetooth_control::bluetooth_control() {}
 
 bluetooth_control::~bluetooth_control() {
    SerialBT.end();
+   con->~controller();
+   led->~oled_control();
+   sensor->~co2_sensor();
+   delete con, led, sensor;
+   con = nullptr;
+   led = nullptr;
+   sensor = nullptr;
 }
 
 void bluetooth_control::init() {
    SerialBT.begin("Heltec_bluetooth");
    Serial.println("STARTING BLUETOOTH");
-   controller::setSpeed(250);
-   controller::controllerInit();
-   oled_control::oled_init();
-   oled_control::startDisplay();
+   con->setSpeed(250);
+   con->controllerInit();
+   led->oled_init();
+   led->startDisplay();
    delay(1000);
 }
 
@@ -23,22 +30,22 @@ void bluetooth_control::bluetooth_read() {
       return;
    char l = SerialBT.read();
    Serial.print("Data: ");
-   SerialBT.println(l);
+   // SerialBT.println(l);
    switch (l) {
       case 'f':
-         controller::moveCar(UP);
+         con->moveCar(UP);
          break;
       case 'b':
-         controller::moveCar(DOWN);
+         con->moveCar(DOWN);
          break;
       case 'r':
-         controller::moveCar(RIGHT);
+         con->moveCar(RIGHT);
          break;
       case 'l':
-         controller::moveCar(LEFT);
+         con->moveCar(LEFT);
          break;
       case 's':
-         controller::moveCar(STOP);
+         con->moveCar(STOP);
          break;
 
       default:
@@ -60,7 +67,8 @@ bool bluetooth_control::isConnected() {
 
 void bluetooth_control::handleData() {
    bluetooth_read();
-   oled_control::display_sensor(co2_sensor::readSensor());
-   controller::getSpeed();
+   con->PWMwrite();
+   led->display_power(con->getSpeed());
+   led->display_sensor(sensor->readSensor());
    Heltec.display->display();
 }
