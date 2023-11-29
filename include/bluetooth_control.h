@@ -8,21 +8,23 @@
 #include "config.h"
 #include "controller.h"
 #include "oled_control.h"
+#include "co2_sensor.h"
 
 using std::string;
 
-class bluetooth_control : public controller, oled_control {
+class bluetooth_control : public controller, co2_sensor {
   private:
    /* data */
    BluetoothSerial SerialBT;
    String remoteName;
    bool isConnected();
+   void bluetooth_read();
 
   public:
    bluetooth_control(/* args */);
    ~bluetooth_control();
-   void bluetooth_init();
-   void bluetooth_read();
+   void init();
+   void handleData();
 };
 
 #endif  // BLUETOOTH_CONTROL_H

@@ -6,14 +6,14 @@ bluetooth_control::~bluetooth_control() {
    SerialBT.end();
 }
 
-void bluetooth_control::bluetooth_init() {
+void bluetooth_control::init() {
    SerialBT.begin("Heltec_bluetooth");
    Serial.println("STARTING BLUETOOTH");
    controller::setSpeed(250);
    controller::controllerInit();
    oled_control::oled_init();
    oled_control::startDisplay();
-   oled_control::display_state(1);
+   delay(1000);
 }
 
 void bluetooth_control::bluetooth_read() {
@@ -56,4 +56,11 @@ bool bluetooth_control::isConnected() {
    } else {
       return false;
    }
+}
+
+void bluetooth_control::handleData() {
+   bluetooth_read();
+   oled_control::display_sensor(co2_sensor::readSensor());
+   controller::getSpeed();
+   Heltec.display->display();
 }

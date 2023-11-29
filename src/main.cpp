@@ -1,10 +1,6 @@
 #include <Arduino.h>
-#include "../include/controller.h"
-#include "../include/oled_control.h"
 #include "../include/bluetooth_control.h"
 
-controller con;
-oled_control led;
 bluetooth_control blue;
 
 // put function declarations here:
@@ -14,14 +10,12 @@ void setup() {
    // put your setup code here, to run once:
    int result = myFunction(2, 3);
    Serial.begin(BAUDRATE);
-   blue.bluetooth_init();
+   blue.init();
    // led.oled_init();
 }
 
 void loop() {
-   blue.bluetooth_read();
-   // led.test_display();
-   // Heltec.display->display();
+   blue.handleData();
 }
 
 // put function definitions here:

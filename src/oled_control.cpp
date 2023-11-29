@@ -33,7 +33,7 @@ void oled_control::startDisplay() {
    Heltec.display->drawString(0, 0, "Starting up");
    Heltec.display->setFont(ArialMT_Plain_16);
    Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
-   Heltec.display->drawString(0, 16, "Speed: 250/255");
+   Heltec.display->drawString(0, 16, "POWER: 250/255");
    Heltec.display->display();
 }
 
@@ -57,6 +57,43 @@ void oled_control::display_state(int state) {
    Heltec.display->clear();
    Heltec.display->setFont(ArialMT_Plain_24);
    Heltec.display->setTextAlignment(TEXT_ALIGN_CENTER);
-   Heltec.display->drawString(WIDTH / 2, HEIGHT / 2 - 20, "FORWARD");
+   switch (state) {
+      case UP:
+         Heltec.display->drawString(WIDTH / 2, HEIGHT / 2 - 20, "FORWARD");
+         break;
+      case DOWN:
+         Heltec.display->drawString(WIDTH / 2, HEIGHT / 2 - 20, "BACKWARD");
+         break;
+      case STOP:
+         Heltec.display->drawString(WIDTH / 2, HEIGHT / 2 - 20, "STOP");
+         break;
+      case RIGHT:
+         Heltec.display->drawString(WIDTH / 2, HEIGHT / 2 - 20, "RIGHT");
+         break;
+      case LEFT:
+         Heltec.display->drawString(WIDTH / 2, HEIGHT / 2 - 20, "LEFT");
+         break;
+
+      default:
+         break;
+   }
    Heltec.display->display();
+}
+
+void oled_control::display_power(int power) {
+   int powerPercent = power / 255 * 100;
+   String power_str = "Power: " + String(powerPercent) + "%";
+   Heltec.display->setFont(ArialMT_Plain_16);
+   Heltec.display->setTextAlignment(TEXT_ALIGN_CENTER);
+   Heltec.display->drawString(WIDTH / 2, 30, power_str);
+   Heltec.display->drawProgressBar(WIDTH / 2, 40, 100, 10, powerPercent);
+}
+
+void oled_control::display_sensor(int value) {
+   Heltec.display->clear();
+   Heltec.display->setFont(ArialMT_Plain_24);
+   Heltec.display->setTextAlignment(TEXT_ALIGN_CENTER);
+   String str = "Result: " + String(value) + "ppm";
+   Heltec.display->drawString(WIDTH / 2, HEIGHT / 2 - 20, str);
+   // Heltec.display->display();
 }

@@ -3,12 +3,10 @@
 
 #include <Arduino.h>
 #include <sstream>
-#include <vector>
 #include "config.h"
+#include "oled_control.h"
 
-using std::vector;
-
-class controller {
+class controller : public oled_control {
   private:
    /* data */
    struct MOTOR_PINS {

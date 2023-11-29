@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdint.h>
 #include "config.h"
+#include <sstream>
 
 using std::string;
 
@@ -21,6 +22,8 @@ public:
    void startDisplay();
    void test_display();
    void display_state(int state);
+   void display_power(int power);
+   void display_sensor(int value);
 };
 
 #endif  // OLED_CONTROL_H
