@@ -15,6 +15,7 @@ bluetooth_control::~bluetooth_control() {
 
 void bluetooth_control::init() {
    SerialBT.begin("Heltec_bluetooth");
+   SerialBT.connect();
    Serial.println("STARTING BLUETOOTH");
    con->setSpeed(250);
    con->controllerInit();
@@ -71,4 +72,5 @@ void bluetooth_control::handleData() {
    led->display_power(con->getSpeed());
    led->display_sensor(sensor->readSensor());
    Heltec.display->display();
+   SerialBT.print(sensor->readSensor());
 }
