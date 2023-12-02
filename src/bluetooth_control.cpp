@@ -72,5 +72,5 @@ void bluetooth_control::handleData() {
    led->display_power(con->getSpeed());
    led->display_sensor(sensor->readSensor());
    Heltec.display->display();
-   SerialBT.print(sensor->readSensor());
+   // SerialBT.print(sensor->readSensor());
 }
