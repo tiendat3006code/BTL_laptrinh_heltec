@@ -34,4 +34,8 @@
 #define ZERO_POINT_VOLTAGE   0.220
 #define REACTION_VOLTGAE     0.030
 
+// DEFINE CONTROL
+#define POWER                0x50
+#define CONTROL              0x43
+
 #endif  // CONFIG_H

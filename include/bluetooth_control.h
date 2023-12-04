@@ -5,12 +5,13 @@
 #include <BluetoothSerial.h>
 #include <stdint.h>
 #include <string.h>
+#include <vector>
 #include "co2_sensor.h"
 #include "config.h"
 #include "controller.h"
 #include "oled_control.h"
 
-using std::string;
+using std::string, std::vector;
 
 class bluetooth_control {
   private:

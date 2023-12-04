@@ -29,28 +29,40 @@ void bluetooth_control::bluetooth_read() {
       return;
    if (!SerialBT.available())
       return;
-   char l = SerialBT.read();
-   Serial.print("Data: ");
+   vector<int> data;
+   while (SerialBT.available()) {
+      int l = SerialBT.read();
+      SerialBT.flush();
+      if (l >= 0)
+         data.push_back(l);
+      else
+         SerialBT.flush();
+   }
+   // Serial.print("Data: ");
    // SerialBT.println(l);
-   switch (l) {
-      case 'f':
-         con->moveCar(UP);
-         break;
-      case 'b':
-         con->moveCar(DOWN);
-         break;
-      case 'r':
-         con->moveCar(RIGHT);
-         break;
-      case 'l':
-         con->moveCar(LEFT);
-         break;
-      case 's':
-         con->moveCar(STOP);
-         break;
+   if (static_cast<uint8_t>(data.at(0)) == POWER)
+      con->setSpeed(data.at(1));
+   else if (static_cast<uint8_t>(data.at(0)) == CONTROL) {
+      switch (static_cast<uint8_t>(data.at(1))) {
+         case 'f':
+            con->moveCar(UP);
+            break;
+         case 'b':
+            con->moveCar(DOWN);
+            break;
+         case 'r':
+            con->moveCar(RIGHT);
+            break;
+         case 'l':
+            con->moveCar(LEFT);
+            break;
+         case 's':
+            con->moveCar(STOP);
+            break;
 
-      default:
-         break;
+         default:
+            break;
+      }
    }
    delay(20);
 }
