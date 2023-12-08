@@ -85,8 +85,8 @@ void oled_control::display_power(int power) {
    Heltec.display->clear();
    float result =  (power / 255.0) * 100;
    powerPercent = static_cast<int>(result);
-   Serial.print("percent: ");
-   Serial.println(result);
+   // Serial.print("percent: ");
+   // Serial.println(result);
    String power_str = "Power : " + String(powerPercent) + "%";
    Heltec.display->setFont(ArialMT_Plain_16);
    Heltec.display->setTextAlignment(TEXT_ALIGN_CENTER);
@@ -99,7 +99,7 @@ void oled_control::display_sensor(int value) {
    // Heltec.display->clear();
    Heltec.display->setFont(ArialMT_Plain_16);
    Heltec.display->setTextAlignment(TEXT_ALIGN_CENTER);
-   String str = "Result : " + String(value) + "ppm";
+   String str = "Result : " + String(value) + " ppm";
    Heltec.display->drawString(WIDTH / 2, 10, str);
    // Heltec.display->display();
 }

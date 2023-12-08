@@ -99,6 +99,7 @@ void controller::rolateMotor(MOTOR_PINS* const motorNumber,
 
 void controller::setSpeed(int speed) {
    this->speed = speed;
+   Serial.println("Set power success");
 }
 
 int controller::getSpeed() {

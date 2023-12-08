@@ -11,19 +11,19 @@ int co2_sensor::readSensor() {
    float volts;
 
    volts = MGRead(MG_PIN);
-   Serial.print("SEN0159:");
-   Serial.print(volts);
-   Serial.print("V           ");
+   // Serial.print("SEN0159:");
+   // Serial.print(volts);
+   // Serial.print("V           ");
 
    percentage = MGGetPercentage(volts, CO2Curve);
-   Serial.print("CO2:");
+   // Serial.print("CO2:");
    if (percentage == -1) {
-      Serial.print("<400");
+      // Serial.print("<400");
    } else {
-      Serial.print(percentage);
+      // Serial.print(percentage);
    }
 
-   Serial.println("ppm");
+   // Serial.println("ppm");
    return percentage;
 }
 

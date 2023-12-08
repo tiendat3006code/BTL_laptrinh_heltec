@@ -31,10 +31,13 @@ void bluetooth_control::bluetooth_read() {
       return;
    vector<int> data;
    while (SerialBT.available()) {
-      int l = SerialBT.read();
-      SerialBT.flush();
-      if (l >= 0)
+      char l = SerialBT.read();
+      if (l >= 0){
+         Serial.print("Received: ");
+         Serial.println(l);
          data.push_back(l);
+         SerialBT.flush();
+      }
       else
          SerialBT.flush();
    }
@@ -82,7 +85,8 @@ void bluetooth_control::handleData() {
    bluetooth_read();
    con->PWMwrite();
    led->display_power(con->getSpeed());
-   led->display_sensor(sensor->readSensor());
+   int sensorResult = sensor->readSensor() / 100;
+   led->display_sensor(sensorResult);
    Heltec.display->display();
-   // SerialBT.print(sensor->readSensor());
+   SerialBT.println(sensorResult);
 }
