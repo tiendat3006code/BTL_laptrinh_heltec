@@ -16,16 +16,22 @@ class controller {
    };
    MOTOR_PINS* ena = new MOTOR_PINS();
    MOTOR_PINS* enb = new MOTOR_PINS();
+   //*Điều khiển động cơ tiến hay lùi
    void rolateMotor(MOTOR_PINS* const motorNumber, int motorDirection);
    int speed;
 
   public:
    controller(/* args */);
    ~controller();
+   //*Cài đặt các thông số cho mạch L298
    void controllerInit();
+   //*Điều khiển hướng di chuyển của xe
    void moveCar(int state);
+   //*Cài đặt giá trị xung PWM
    void setSpeed(int speed);
+   //*Lấy giá trị xung PWM đang được cài đặt
    int getSpeed();
+   //*Băm xung PWM
    void PWMwrite();
 };
 
